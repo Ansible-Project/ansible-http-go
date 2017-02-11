@@ -1,0 +1,8 @@
+package: github.com/ki38sato/ansible-http
+import:
+  - package: gopkg.in/yaml.v2
+  - package: github.com/mkideal/cli
+  - package: github.com/labstack/echo
+    version: v2.2.0
+  - package: github.com/pkg/errors
+  - package: github.com/satori/go.uuid

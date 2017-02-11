@@ -1,0 +1,12 @@
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile /ansible/keys/github_key.pem
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+
+Host *
+  User ec2-user
+  IdentityFile /ansible/keys/ec2_ssh_key.pem
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null

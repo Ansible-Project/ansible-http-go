@@ -1,0 +1,4 @@
+boto
+boto3
+requests
+httplib2
