@@ -1,0 +1,4 @@
+vendor/*
+glide.lock
+ansible/ansible-http-go
+ansible/config.yml
