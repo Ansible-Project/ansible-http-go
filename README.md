@@ -72,11 +72,13 @@ command
 Feature
 ---
 - test
+- logger
 - GET /ansible/playbook/list
 - POST /ansible/command/run
 - no block mode (not wait for execution result)
 - notification task
 - update echo version
+- reuse workspace (with scheduled clearning dirs)
 
 LICENSE
 ---
