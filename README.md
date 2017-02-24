@@ -5,22 +5,45 @@ ansible docker container with http wrapper
 - ansible with http
 - multiple execution with various branches during same time
 
-usage
+build
 ---
-- registered docker container 'ansible-http'
-```
-./make.sh
-```
-- prepare config.yml in ansible/ dir (ref. sample_config.yml)
 - edit requirements.txt you need more python library
+- when you do the following, the docker container 'ansible-http' is registered.
+```
+$ ./make.sh
+```
+
+configuration
+---
+```
+$ cat config.yml
+---
+port: 1323
+repository_url: git@github.com:you/your-ansible-playbook-repository.git
+default_inventory: inventory_path_your_repository
+default_verbose: -vv
+default_branch: develop
+```
+
+|key|value|description|
+|---|---|---|
+|port|(1323)|port number for http|
+|repository_url||ansible playbook git repository|
+|default_inventory||default inventory path|
+|default_verbose|(-v,-vv,-vvv,-vvvv)|default verbose option|
+|default_branch|(develop,master,etc..)|default branch|
+
+run
+---
 - docker run
 ```
-docker run -it --name ansible-http --rm -p 1323:1323 ansible-http
+docker run -it --name ansible-http --rm -p 1323:1323 -v $PWD/config.yml:/ansible/config.yml ansible-http
 ```
 - access test
 ```
 curl localhost:1323/version
 ```
+
 
 (under construction...)
 
