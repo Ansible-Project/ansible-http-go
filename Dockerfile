@@ -34,7 +34,6 @@ RUN set -x \
 ADD ansible/ansible-http-go /ansible/ansible-http-go
 ADD ansible/ssh_config /home/ansible/.ssh/config
 ADD ansible/sudoers_ansible /etc/sudoers.d/ansible
-ADD ansible/config.yml /ansible/config.yml
 
 RUN chown -R ansible:ansible /ansible \
 	&& chown -R ansible:ansible /home/ansible \
@@ -42,7 +41,6 @@ RUN chown -R ansible:ansible /ansible \
 
 WORKDIR /ansible
 VOLUME /ansible/keys
-VOLUME /ansible/config
 USER ansible
 
 CMD ["/ansible/ansible-http-go", "-c", "/ansible/config.yml"]

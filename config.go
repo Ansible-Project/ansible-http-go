@@ -41,7 +41,7 @@ func loadConfig(configPath string) (*Config, error) {
 
 func initializeConfig(config *Config) *Config {
 	if config.WorkDir == "" {
-		config.WorkDir = "./"
+		config.WorkDir = "work"
 	}
 	if config.Mode == "" {
 		config.Mode = "git"
