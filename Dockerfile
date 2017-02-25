@@ -25,22 +25,26 @@ RUN set -ex \
 ##### setup ansible-http #####
 
 RUN set -x \
-	&& mkdir -p /ansible/work \
-	&& mkdir -p /ansible/keys \
+	&& mkdir -p /ansible/work /ansible/keys /ansible/ssh \
 	&& groupadd -g 1001 ansible \
 	&& useradd -m -c "ansible user" -g ansible -s /bin/bash -d /home/ansible -u 1001 ansible \
-	&& mkdir -p /home/ansible/.ssh
+	&& mkdir -p /home/ansible/.ssh \
+	&& chmod 700 /home/ansible/.ssh
 
 ADD ansible/ansible-http-go /ansible/ansible-http-go
-ADD ansible/ssh_config /home/ansible/.ssh/config
+#ADD ansible/ssh_config /home/ansible/.ssh/config
 ADD ansible/sudoers_ansible /etc/sudoers.d/ansible
+ADD ansible/start.sh /ansible/start.sh
 
 RUN chown -R ansible:ansible /ansible \
 	&& chown -R ansible:ansible /home/ansible \
-	&& chmod +x /ansible/ansible-http-go
+	&& chmod +x /ansible/ansible-http-go \
+	&& chmod +x /ansible/start.sh
 
 WORKDIR /ansible
 VOLUME /ansible/keys
+VOLUME /ansible/ssh
 USER ansible
 
-CMD ["/ansible/ansible-http-go", "-c", "/ansible/config.yml"]
+#CMD ["/ansible/ansible-http-go", "-c", "/ansible/config.yml"]
+CMD ["./start.sh"]

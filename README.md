@@ -27,8 +27,8 @@ default_branch: develop
 
 |key|value|description|
 |---|---|---|
-|port|(1323)|port number for http|
-|repository_url||ansible playbook git repository|
+|port|(1323)|(required) port number for http|
+|repository_url||(required) ansible playbook git repository|
 |default_inventory||default inventory path|
 |default_verbose|(-v,-vv,-vvv,-vvvv)|default verbose option|
 |default_branch|(develop,master,etc..)|default branch|
@@ -37,13 +37,30 @@ run
 ---
 - docker run
 ```
-docker run -it --name ansible-http --rm -p 1323:1323 -v $PWD/config.yml:/ansible/config.yml ansible-http
+$ docker run -d --name ansible-http -p 1323:1323 -v $PWD/config.yml:/ansible/config.yml ansible-http
 ```
 - access test
 ```
-curl localhost:1323/version
+$ curl localhost:1323/version
 ```
 
+ssh configuration
+---
+```
+$ cat ssh/config
+Host gitbucket
+  HostName 192.168.99.100
+  Port 29418
+  User git
+  IdentityFile /ansible/keys/gitbucket_key.pem
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+
+$ ls keys
+gitbucket_key.pem
+
+$ docker run -d --name ansible-http -p 1323:1323 -v $PWD/config.yml:/ansible/config.yml -v $PWD/ssh:/ansible/ssh -v $PWD/keys:/ansible/keys ansible-http
+```
 
 (under construction...)
 
